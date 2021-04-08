@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,9 +9,28 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import { useState, useEffect } from 'react'
 
 
-export default function ApplicationList({ applications }) {
+export default function ApplicationList() {
+    const [applications, setApplications] = useState([])
+
+    const fetchApplications = async () => {
+        const res = await fetch(process.env.REACT_APP_API_URL)
+        const data = await res.json()
+        return data
+      }
+    
+      useEffect(() => {
+        const getApplications = async () => {
+          const applicationList = await fetchApplications()
+          console.log(applicationList)
+          setApplications(applicationList)
+        }
+    
+        getApplications()
+      }, [])
+
     return (
         <>
             <Typography variant='h2' align='center' gutterBottom>Applications</Typography>
