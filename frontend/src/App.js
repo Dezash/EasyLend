@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import ApplicationList from './components/Applications/ApplicationList'
+import Application from './components/Applications/Application'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,19 +31,21 @@ function App() {
 
   return (
     <div className={classes.root}>
-      <Navigation />
-      <main classname={classes.content}>
-        <div className={classes.toolbar} />
-        <Router>
+      <Router>
+        <Navigation />
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+
           <Switch>
             <Route path='/' exact component={ApplicationList}></Route>
+            <Route path="/applications/:id" component={Application} />
             <Route render={() => (
               <h1>404 not found</h1>
             )}></Route>
           </Switch>
-        </Router>
-      </main>
 
+        </main>
+      </Router>
     </div>
   );
 }
