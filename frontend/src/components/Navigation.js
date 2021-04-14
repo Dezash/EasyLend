@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import CheckIcon from '@material-ui/icons/Check';
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -142,20 +143,24 @@ export default function Navigation() {
                 </div>
                 <Divider />
                 <List>
-                    {['Apply'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <CheckIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
+                    {[{ title: 'Apply', link: "/apply" }].map((navItem, index) => (
+                        <Link to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem button key={navItem.title}>
+                                <ListItemIcon>{index % 2 === 0 ? <CheckIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={navItem.title} />
+                            </ListItem>
+                        </Link>
                     ))}
                 </List>
                 <Divider />
                 <List>
-                    {['Applications'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
+                    {[{ title: 'Applications', link: "/" }].map((navItem, index) => (
+                        <Link to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem button key={navItem.title}>
+                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={navItem.title} />
+                            </ListItem>
+                        </Link>
                     ))}
                 </List>
             </Drawer>
