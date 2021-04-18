@@ -8,19 +8,23 @@ import {
     ListItemIcon,
     ListItemText,
     Button,
-    ButtonGroup
+    ButtonGroup,
 } from '@material-ui/core';
+
 import PhoneIcon from '@material-ui/icons/Phone';
 import EmailIcon from '@material-ui/icons/Email';
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import PersonIcon from '@material-ui/icons/Person';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { green, red } from '@material-ui/core/colors';
 import { useState, useEffect } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import React from 'react';
+import DocumentItem from './DocumentItem';
 
 
 const theme = createMuiTheme({
@@ -34,6 +38,7 @@ const theme = createMuiTheme({
     },
 });
 
+
 const Application = (props) => {
     const appId = props.match.params.id
     const headers = {
@@ -42,16 +47,16 @@ const Application = (props) => {
     const [application, setApplication] = useState([])
 
     const fetchApplication = async (id) => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/${id}`)
+        const res = await fetch(`${process.env.REACT_APP_API_URL}applications/${id}`)
         const data = await res.json()
         return data
     }
 
-    const setApplicationStatus = async(newStatus) => {
-        setApplication({...application, status: newStatus})
+    const setApplicationStatus = async (newStatus) => {
+        setApplication({ ...application, status: newStatus })
         application.status = newStatus
 
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/${appId}`, {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}applications/${appId}`, {
             method: 'PUT',
             headers: headers,
             body: JSON.stringify(application)
@@ -60,8 +65,8 @@ const Application = (props) => {
         return data
     }
 
-    const deleteApplication = async() => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/${appId}`, {
+    const deleteApplication = async () => {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}applications/${appId}`, {
             method: 'DELETE',
             headers: headers
         })
@@ -74,15 +79,15 @@ const Application = (props) => {
             title: 'Delete application',
             message: 'Are you sure you want to do this?',
             buttons: [
-              {
-                label: 'Yes',
-                onClick: () => deleteApplication()
-              },
-              {
-                label: 'No'
-              }
+                {
+                    label: 'Yes',
+                    onClick: () => deleteApplication()
+                },
+                {
+                    label: 'No'
+                }
             ]
-          });
+        });
     }
 
     useEffect(() => {
@@ -119,9 +124,9 @@ const Application = (props) => {
                                 aria-label="full-width contained primary button group"
                             >
 
-                                <Button color="primary" onClick={() => {setApplicationStatus('Approved')}}>Approve</Button>
-                                <Button color="secondary" onClick={() => {setApplicationStatus('Rejected')}}>Reject</Button>
-                                <Button color="secondary" onClick={() => {openDeleteDialog()}}>Delete</Button>
+                                <Button color="primary" onClick={() => { setApplicationStatus('Approved') }}>Approve</Button>
+                                <Button color="secondary" onClick={() => { setApplicationStatus('Rejected') }}>Reject</Button>
+                                <Button color="secondary" onClick={() => { openDeleteDialog() }}>Delete</Button>
                             </ButtonGroup>
                         )}
                     </div>
@@ -209,6 +214,19 @@ const Application = (props) => {
                         </List>
                     </Grid>
                 </Grid>
+                <Typography variant="h5" component="h2" style={{ margin: '20px' }}>
+                    Documents
+        </Typography>
+                <Divider style={{ margin: '0 20px' }} />
+
+                {application.documents &&
+                    application.documents.map((doc) => (
+                        <DocumentItem file={doc} />
+                    ))
+                }
+
+
+
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', padding: '15px 10px' }}>
                 </div>
             </div>
