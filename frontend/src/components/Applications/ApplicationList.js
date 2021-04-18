@@ -9,14 +9,16 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import { useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 
 export default function ApplicationList() {
+    const { push } = useHistory();
     const [applications, setApplications] = useState([])
 
     const fetchApplications = async () => {
-        const res = await fetch(process.env.REACT_APP_API_URL)
+        const res = await fetch(`${process.env.REACT_APP_API_URL}applications`)
         const data = await res.json()
         return data
       }
@@ -29,7 +31,7 @@ export default function ApplicationList() {
         }
     
         getApplications()
-      }, [])
+      }, [push])
 
     return (
         <>
@@ -55,16 +57,16 @@ export default function ApplicationList() {
                         {applications.map((application) => (
                             <TableRow key={application.id}>
                                 <TableCell component="th" scope="row">
-                                {application.name}
+                                {application.user.name}
                                 </TableCell>
-                                <TableCell>{application.lastName}</TableCell>
-                                <TableCell>{application.email}</TableCell>
-                                <TableCell>{application.personalCode}</TableCell>
-                                <TableCell>{application.birthDate}</TableCell>
-                                <TableCell>{application.address}</TableCell>
-                                <TableCell>{application.phone}</TableCell>
+                                <TableCell>{application.user.lastName}</TableCell>
+                                <TableCell>{application.user.email}</TableCell>
+                                <TableCell>{application.user.personalCode}</TableCell>
+                                <TableCell>{application.user.birthDate}</TableCell>
+                                <TableCell>{application.user.address}</TableCell>
+                                <TableCell>{application.user.phone}</TableCell>
                                 <TableCell>{application.dateSubmitted}</TableCell>
-                                <TableCell>{application.dateRegistered}</TableCell>
+                                <TableCell>{application.user.dateRegistered}</TableCell>
                                 <TableCell>{application.status}</TableCell>
                                 <TableCell><Link to={`applications/${application.id}`}><VisibilityIcon/></Link></TableCell>
                             </TableRow>

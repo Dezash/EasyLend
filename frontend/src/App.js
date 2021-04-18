@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import ApplicationList from './components/Applications/ApplicationList'
 import Application from './components/Applications/Application'
+import ApplyForm from './components/Applications/ApplyForm'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +39,7 @@ function App() {
 
           <Switch>
             <Route path='/' exact component={ApplicationList}></Route>
+            <Route path="/apply" component={ApplyForm} />
             <Route path="/applications/:id" component={Application} />
             <Route render={() => (
               <h1>404 not found</h1>
