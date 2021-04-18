@@ -144,8 +144,8 @@ export default function Navigation() {
                 <Divider />
                 <List>
                     {[{ title: 'Apply', link: "/apply" }].map((navItem, index) => (
-                        <Link to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <ListItem button key={navItem.title}>
+                        <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem button>
                                 <ListItemIcon>{index % 2 === 0 ? <CheckIcon /> : <MailIcon />}</ListItemIcon>
                                 <ListItemText primary={navItem.title} />
                             </ListItem>
@@ -155,8 +155,8 @@ export default function Navigation() {
                 <Divider />
                 <List>
                     {[{ title: 'Applications', link: "/" }].map((navItem, index) => (
-                        <Link to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <ListItem button key={navItem.title}>
+                        <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem button>
                                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                                 <ListItemText primary={navItem.title} />
                             </ListItem>
