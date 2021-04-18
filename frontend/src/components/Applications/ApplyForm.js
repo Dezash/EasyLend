@@ -58,6 +58,8 @@ export default function ApplyForm(props) {
         );
 
         axios.post(`${process.env.REACT_APP_API_URL}applications`, formData);
+
+        props.history.push('/');
     }
 
     return (
