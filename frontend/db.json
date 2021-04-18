@@ -11,7 +11,17 @@
       "phone": "+37068994584",
       "dateSubmitted": "2021-04-08",
       "dateRegistered": "2021-03-02",
-      "status": "Pending"
+      "status": "Pending",
+      "documents": [
+        {
+          "name": "bank_statement.pdf",
+          "url": "localhost:3000/documents/9"
+        },
+        {
+          "name": "passport.png",
+          "url": "localhost:3000/documents/10"
+        }
+      ]
     }
   ]
 }
