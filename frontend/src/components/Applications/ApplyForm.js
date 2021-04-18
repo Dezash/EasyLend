@@ -72,13 +72,13 @@ export default function ApplyForm(props) {
                                 <Typography variant="h5" component="h2">
                                     Photo of passport or ID card
                             </Typography>
-                                <Input type="file" name="file" onChange={(e) => uploadFile(e, "passport")} inputProps={{ accept: "image/jpeg,image/gif,image/png,application/pdf,image/x-eps" }} />
+                                <Input type="file" name="file" onChange={(e) => uploadFile(e, "passport")} required inputProps={{ accept: "image/jpeg,image/gif,image/png,application/pdf,image/x-eps" }} />
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="h5" component="h2">
                                     Bank statement
                             </Typography>
-                                <Input type="file" name="file" onChange={(e) => uploadFile(e, "statement")} inputProps={{ accept: "application/pdf" }} />
+                                <Input type="file" name="file" onChange={(e) => uploadFile(e, "statement")} required inputProps={{ accept: "application/pdf" }} />
                             </Grid>
                         </Grid>
                         <Button
