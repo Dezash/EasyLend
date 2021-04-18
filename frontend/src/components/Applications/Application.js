@@ -104,13 +104,13 @@ const Application = (props) => {
         <ThemeProvider theme={theme}>
             <div className="User">
                 <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
-                    <Avatar src={`https://eu.ui-avatars.com/api/?name=${application.name}+${application.lastName}`} alt={application.name + ' ' + application.lastName} style={{ margin: '10px', width: '80px', height: '80px' }} />
+                    <Avatar src={application.user && `https://eu.ui-avatars.com/api/?name=${application.user.name}+${application.user.lastName}`} alt={application.user && ((application.user.name) + ' ' + (application.user.lastName))} style={{ margin: '10px', width: '80px', height: '80px' }} />
                     <div>
                         <Typography variant="h4" component="h2">
-                            {application.name} {application.lastName}
+                            {application.user && application.user.name} {application.user && application.user.lastName}
                         </Typography>
                         <Typography component="p">
-                            {application.birthDate}
+                            {application.user && application.user.birthDate}
                         </Typography>
                     </div>
                     <div style={{ position: 'absolute', right: 30 }}>
@@ -139,35 +139,35 @@ const Application = (props) => {
                 <Grid container spacing={2}>
                     <Grid item xs>
                         <List>
-                            <ListItem>
+                            <ListItem key="phone">
                                 <ListItemIcon>
                                     <PhoneIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary="Phone number"
-                                    secondary={application.phone}
+                                    secondary={application.user && application.user.phone}
                                 />
                             </ListItem>
-                            <ListItem>
+                            <ListItem key="email">
                                 <ListItemIcon>
                                     <EmailIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary="Email address"
-                                    secondary={application.email}
+                                    secondary={application.user && application.user.email}
                                 />
                             </ListItem>
                         </List>
                     </Grid>
                     <Grid item xs>
                         <List>
-                            <ListItem>
+                            <ListItem key="address">
                                 <ListItemIcon>
                                     <LocationOnIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary="Address"
-                                    secondary={application.address}
+                                    secondary={application.user && application.user.address}
                                 />
                             </ListItem>
                         </List>
@@ -180,29 +180,29 @@ const Application = (props) => {
                 <Grid container spacing={2}>
                     <Grid item xs>
                         <List>
-                            <ListItem>
+                            <ListItem key="personalCode">
                                 <ListItemIcon>
                                     <PersonIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary="Personal code"
-                                    secondary={application.personalCode}
+                                    secondary={application.user && application.user.personalCode}
                                 />
                             </ListItem>
-                            <ListItem>
+                            <ListItem key="dateRegistered">
                                 <ListItemIcon>
                                     <EventNoteIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary="Date registered"
-                                    secondary={application.dateRegistered}
+                                    secondary={application.user && application.user.dateRegistered}
                                 />
                             </ListItem>
                         </List>
                     </Grid>
                     <Grid item xs>
                         <List>
-                            <ListItem>
+                            <ListItem key="dateSubmitted">
                                 <ListItemIcon>
                                     <EventAvailableIcon color="primary" />
                                 </ListItemIcon>
@@ -219,13 +219,13 @@ const Application = (props) => {
         </Typography>
                 <Divider style={{ margin: '0 20px' }} />
 
-                {application.documents &&
-                    application.documents.map((doc) => (
-                        <DocumentItem file={doc} />
-                    ))
-                }
-
-
+                <List>
+                    {application.documents &&
+                        application.documents.map((doc) => (
+                            <DocumentItem file={doc} />
+                        ))
+                    }
+                </List>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', padding: '15px 10px' }}>
                 </div>

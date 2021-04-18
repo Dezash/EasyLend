@@ -2,16 +2,18 @@
   "applications": [
     {
       "id": 1,
-      "name": "aisole",
-      "lastName": "sekso chuliganas",
-      "email": "aisole@ktu.edu",
-      "personalCode": "04075612270",
-      "birthDate": "1889-04-20",
-      "address": "Lukiškių tardymo izoliatoriaus",
-      "phone": "+37068994584",
       "dateSubmitted": "2021-04-08",
-      "dateRegistered": "2021-03-02",
       "status": "Pending",
+      "user": {
+        "name": "aisole",
+        "lastName": "sekso chuliganas",
+        "email": "aisole@ktu.edu",
+        "personalCode": "04075612270",
+        "birthDate": "1889-04-20",
+        "address": "Lukiškių tardymo izoliatoriaus",
+        "phone": "+37068994584",
+        "dateRegistered": "2021-03-02"
+      },
       "documents": [
         {
           "name": "bank_statement.pdf",
