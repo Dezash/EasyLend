@@ -12,7 +12,7 @@ import React from 'react';
 const DocumentItem = (props) => {
     return (
         <Link target="_blank" href={props.file.url} color="inherit">
-            <ListItem button key={props.file.name}>
+            <ListItem button>
                 <ListItemAvatar>
                     <Avatar>
                         <FolderIcon />

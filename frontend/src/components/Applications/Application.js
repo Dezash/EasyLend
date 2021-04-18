@@ -222,7 +222,7 @@ const Application = (props) => {
                 <List>
                     {application.documents &&
                         application.documents.map((doc) => (
-                            <DocumentItem file={doc} />
+                            <DocumentItem file={doc} key={doc.name} />
                         ))
                     }
                 </List>
