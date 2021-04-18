@@ -2,6 +2,7 @@
 using easylend.Entities;
 using System;
 using System.Linq;
+using easylend.Database.Entities;
 
 namespace easylend.Helpers
 {
@@ -78,20 +79,9 @@ namespace easylend.Helpers
                 Status = Status.Pending
             };
 
-            var document1 = new Document()
-            {
-                Url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            };
-
-            var document2 = new Document()
-            {
-                Url = "https://www.youtube.com/watch?v=FF0bA3kVSMo"
-            };
 
 
             application.User = aistis;
-            application.Documents.Add(document1);
-            application.Documents.Add(document2);
             context.Applications.Add(application);
 
             context.SaveChanges();

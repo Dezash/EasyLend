@@ -1,6 +1,7 @@
 ﻿using easylend.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using easylend.Database.Entities;
 
 namespace easylend.Database
 {
@@ -29,7 +30,7 @@ namespace easylend.Database
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Status).HasConversion(v => v.ToString(), v => (Status)Enum.Parse(typeof(Status), v));
-                entity.HasMany(d => d.Documents).WithOne(a => a.Application);
+                entity.HasMany(d => d.Documents).WithOne(a => a.Application).OnDelete(DeleteBehavior.Cascade);
             });
 
         }

@@ -1,30 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using easylend.DTO;
+using easylend.Entities;
 
-namespace easylend.Entities
+namespace easylend.Database.Entities
 {
     public class Application
     {
+        [Key]
+        [JsonIgnore]
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public Status Status { get; set; }
-
         [JsonIgnore]
-        public User User { get; set; }
+        public virtual User User { get; set; }
         [JsonIgnore]
-        public ICollection<Document> Documents { get; set; }
-
+        public virtual ICollection<Document> Documents { get; set; }
+        public int? UserID { get; set; }
         public Application()
         {
             Documents = new List<Document>();
         }
-    }
 
-    public enum Status
-    {
-        Approved,
-        Rejected,
-        Pending
     }
 }
