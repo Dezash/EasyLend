@@ -16,7 +16,7 @@ export default function ApplicationList() {
     const [applications, setApplications] = useState([])
 
     const fetchApplications = async () => {
-        const res = await fetch(process.env.REACT_APP_API_URL)
+        const res = await fetch(`${process.env.REACT_APP_API_URL}applications`)
         const data = await res.json()
         return data
       }
