@@ -117,18 +117,20 @@ const Application = (props) => {
                         <Typography component="p">
                             Status: {application.status}
                         </Typography>
-                        {application.status === "Pending" && (
-                            <ButtonGroup
-                                variant="contained"
-                                color="primary"
-                                aria-label="full-width contained primary button group"
-                            >
+                        <ButtonGroup
+                            variant="contained"
+                            color="primary"
+                            aria-label="full-width contained primary button group"
+                        >
+                            {application.status === "Pending" && (
+                                <>
+                                    <Button color="primary" onClick={() => { setApplicationStatus('Approved') }}>Approve</Button>
+                                    <Button color="secondary" onClick={() => { setApplicationStatus('Rejected') }}>Reject</Button>
+                                </>
 
-                                <Button color="primary" onClick={() => { setApplicationStatus('Approved') }}>Approve</Button>
-                                <Button color="secondary" onClick={() => { setApplicationStatus('Rejected') }}>Reject</Button>
-                                <Button color="secondary" onClick={() => { openDeleteDialog() }}>Delete</Button>
-                            </ButtonGroup>
-                        )}
+                            )}
+                            <Button color="secondary" onClick={() => { openDeleteDialog() }}>Delete</Button>
+                        </ButtonGroup>
                     </div>
                 </div>
                 <Divider />
