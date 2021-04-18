@@ -9,10 +9,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import { useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 
 export default function ApplicationList() {
+    const { push } = useHistory();
     const [applications, setApplications] = useState([])
 
     const fetchApplications = async () => {
@@ -29,7 +31,7 @@ export default function ApplicationList() {
         }
     
         getApplications()
-      }, [])
+      }, [push])
 
     return (
         <>
