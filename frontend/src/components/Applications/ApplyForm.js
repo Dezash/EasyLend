@@ -57,7 +57,8 @@ export default function ApplyForm(props) {
             files.statement.name
         );
 
-        axios.post(`${process.env.REACT_APP_API_URL}applications`, formData);
+        const response = axios.post(`${process.env.REACT_APP_API_URL}applications`, formData);
+        await response.data
 
         props.history.push('/');
     }

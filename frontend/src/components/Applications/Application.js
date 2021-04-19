@@ -65,7 +65,8 @@ const Application = (props) => {
     }
 
     const deleteApplication = async () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}applications/${appId}`);
+        const response = axios.delete(`${process.env.REACT_APP_API_URL}applications/${appId}`);
+        await response.data
         props.history.push('/');
     }
 
