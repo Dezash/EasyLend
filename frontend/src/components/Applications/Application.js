@@ -67,8 +67,7 @@ const Application = (props) => {
 
     const deleteApplication = async () => {
         const res = await fetch(`${process.env.REACT_APP_API_URL}applications/${appId}`, {
-            method: 'DELETE',
-            headers: headers
+            method: 'DELETE'
         })
         await res.json()
         props.history.push('/');
