@@ -76,10 +76,9 @@ namespace easylend.Controllers
 
             var applicationDb = await _dbContext.Applications.FirstOrDefaultAsync(x => x.UserID == 1);
 
-            if (applicationDb == null)
-                return BadRequest();
+            if (applicationDb != null)
+                _dbContext.Applications.Remove(applicationDb);
 
-            _dbContext.Applications.Remove(applicationDb);
 
             await _dbContext.Applications.AddAsync(newApplication);
             await _dbContext.SaveChangesAsync();
@@ -106,21 +105,23 @@ namespace easylend.Controllers
 
             await _dbContext.SaveChangesAsync();
 
-            return Ok();
+            return new ObjectResult("geh") { StatusCode = 201 };
         }
 
         // PUT api/Applications/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] ApplicationDTO applicationDto)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateApplicationDTO applicationDto)
         {
             var result = await _dbContext.Applications.SingleOrDefaultAsync(x => x.Id == id);
 
-            if (result == null)
+            if (result != null)
             {
-                result = _mapper.Map<Application>(applicationDto);
+                result.Status = (Status)Enum.Parse(typeof(Status), applicationDto.Status);
                 await _dbContext.SaveChangesAsync();
+                return Ok();
             };
 
+            return BadRequest();
         }
 
         // DELETE api/Applications/5

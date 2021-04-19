@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using easylend.Entities;
 
 namespace easylend.DTO
 {
@@ -11,6 +10,5 @@ namespace easylend.DTO
         public string Status { get; set; }
         public UserDTO User { get; set; }
         public List<DocumentDTO> Documents { get; set; }
-
     }
 }

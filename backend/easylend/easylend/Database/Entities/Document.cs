@@ -14,7 +14,6 @@ namespace easylend.Entities
         [JsonIgnore]
         public virtual Application Application { get; set; }
         public int? ApplicationID { get; set; }
-
         public Document()
         {
             

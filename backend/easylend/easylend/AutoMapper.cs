@@ -3,6 +3,8 @@ using easylend.Database.Entities;
 using easylend.DTO;
 using easylend.Entities;
 using Google.Protobuf.WellKnownTypes;
+using System;
+using Enum = System.Enum;
 
 namespace easylend
 {
@@ -16,7 +18,9 @@ namespace easylend
                 .ForMember(dst => dst.DateSubmitted, otp => otp.MapFrom(map => map.Date))
                 .ForMember(dst => dst.Status, otp => otp.MapFrom(map => map.Status.ToString()));
 
-            CreateMap<ApplicationDTO, Application>();
+            CreateMap<ApplicationDTO, Application>()
+                .ForMember(dst => dst.Date, otp => otp.MapFrom(map => map.DateSubmitted))
+                .ForMember(dst => dst.Status, otp => otp.MapFrom(map => Enum.Parse(typeof(Status), map.Status)));
             CreateMap<Document, DocumentDTO>().ForMember(dst => dst.Name, opt => opt.MapFrom(map => map.FileName));
             CreateMap<Application, NewApplicationDTO>();
             CreateMap<NewApplicationDTO, Application>();
@@ -25,6 +29,9 @@ namespace easylend
 
             CreateMap<NewDocumentDTO, Document>().ForMember(dst => dst.FileData,
                 cd => cd.MapFrom(map => map.FileData));
+
+            CreateMap<Application, UpdateApplicationDTO>();
+            CreateMap<UpdateApplicationDTO, Application>();
         }
     }
 }
