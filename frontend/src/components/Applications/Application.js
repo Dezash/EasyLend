@@ -25,6 +25,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import React from 'react';
 import DocumentItem from './DocumentItem';
+import axios from 'axios';
 
 
 const theme = createMuiTheme({
@@ -47,8 +48,8 @@ const Application = (props) => {
     const [application, setApplication] = useState([])
 
     const fetchApplication = async (id) => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}applications/${id}`)
-        const data = await res.json()
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}applications/${id}`)
+        const data = await res.data
         return data
     }
 
@@ -56,21 +57,16 @@ const Application = (props) => {
         setApplication({ ...application, status: newStatus })
         application.status = newStatus
 
-        const res = await fetch(`${process.env.REACT_APP_API_URL}applications/${appId}`, {
-            method: 'PUT',
+        const res = await axios.put(`${process.env.REACT_APP_API_URL}applications/${appId}`, application, {
             headers: headers,
-            body: JSON.stringify(application)
         })
-        const data = await res.json()
+        const data = await res.data
         return data
     }
 
     const deleteApplication = async () => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}applications/${appId}`, {
-            method: 'DELETE',
-            headers: headers
-        })
-        await res.json()
+        const response = axios.delete(`${process.env.REACT_APP_API_URL}applications/${appId}`);
+        await response.data
         props.history.push('/');
     }
 
@@ -117,18 +113,20 @@ const Application = (props) => {
                         <Typography component="p">
                             Status: {application.status}
                         </Typography>
-                        {application.status === "Pending" && (
-                            <ButtonGroup
-                                variant="contained"
-                                color="primary"
-                                aria-label="full-width contained primary button group"
-                            >
+                        <ButtonGroup
+                            variant="contained"
+                            color="primary"
+                            aria-label="full-width contained primary button group"
+                        >
+                            {application.status === "Pending" && (
+                                <>
+                                    <Button color="primary" onClick={() => { setApplicationStatus('Approved') }}>Approve</Button>
+                                    <Button color="secondary" onClick={() => { setApplicationStatus('Rejected') }}>Reject</Button>
+                                </>
 
-                                <Button color="primary" onClick={() => { setApplicationStatus('Approved') }}>Approve</Button>
-                                <Button color="secondary" onClick={() => { setApplicationStatus('Rejected') }}>Reject</Button>
-                                <Button color="secondary" onClick={() => { openDeleteDialog() }}>Delete</Button>
-                            </ButtonGroup>
-                        )}
+                            )}
+                            <Button color="secondary" onClick={() => { openDeleteDialog() }}>Delete</Button>
+                        </ButtonGroup>
                     </div>
                 </div>
                 <Divider />
