@@ -32,6 +32,17 @@ namespace easylend
 
             CreateMap<Application, UpdateApplicationDTO>();
             CreateMap<UpdateApplicationDTO, Application>();
+
+            CreateMap<RiskGroup, UpdateRiskGroupDTO>();
+            CreateMap<UpdateRiskGroupDTO, RiskGroup>();
+
+            CreateMap<RiskGroup, GetRiskGroupDTO>();
+            CreateMap<GetRiskGroupDTO, RiskGroup>();
+
+            CreateMap<Goal, UpdateGoalDTO>();
+            CreateMap<UpdateGoalDTO, Goal>()
+                .ForMember(dst => dst.GoalType, otp => otp.MapFrom(map => Enum.Parse(typeof(GoalType), map.GoalType)));
+
         }
     }
 }
