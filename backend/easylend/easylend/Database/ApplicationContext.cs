@@ -40,11 +40,6 @@ namespace easylend.Database
                 entity.HasKey(e => e.Id);
                 entity.HasMany(u => u.Users).WithOne(r => r.RiskGroup).IsRequired(false);
             });
-
-            modelBuilder.Entity<Goal>(entity =>
-            {
-              //  entity.Property(e => e.GoalType).HasConversion(v => v.ToString(), v => (GoalType)Enum.Parse(typeof(Status), v));
-            });
         }
     }
 }

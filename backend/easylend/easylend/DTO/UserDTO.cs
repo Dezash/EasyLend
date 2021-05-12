@@ -1,4 +1,5 @@
 ﻿using System;
+using easylend.Database.Entities;
 
 namespace easylend.DTO
 {
@@ -12,7 +13,9 @@ namespace easylend.DTO
         public string LastName { get; set; }
         public string PersonalCode { get; set; }
         public string Address { get; set; }
-        public string Phone { get; set; }
+        public string Password { get; set; }
+        public string PhoneNumber { get; set; }
         public double MinInterestRate { get; set; }
+        public int RiskGroupId { get; set; }
     }
 }
