@@ -18,7 +18,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import CheckIcon from '@material-ui/icons/Check';
+import EcoIcon from '@material-ui/icons/Eco';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { Link } from "react-router-dom";
+
 
 const drawerWidth = 240;
 
@@ -158,6 +161,28 @@ export default function Navigation() {
                         <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItem button>
                                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={navItem.title} />
+                            </ListItem>
+                        </Link>
+                    ))}
+                </List>
+                <Divider />
+                <List>
+                    {[{ title: 'Goals', link: "/goals" }].map((navItem) => (
+                        <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem button>
+                                <ListItemIcon><EcoIcon/></ListItemIcon>
+                                <ListItemText primary={navItem.title} />
+                            </ListItem>
+                        </Link>
+                    ))}
+                </List>
+                <Divider /> 
+                <List>
+                    {[{ title: 'Settings', link: "/settings" }].map((navItem) => (
+                        <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem button>
+                                <ListItemIcon><SettingsIcon/></ListItemIcon>
                                 <ListItemText primary={navItem.title} />
                             </ListItem>
                         </Link>
