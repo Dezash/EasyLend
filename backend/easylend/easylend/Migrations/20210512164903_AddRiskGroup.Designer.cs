@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using easylend.Database;
 
 namespace easylend.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210512164903_AddRiskGroup")]
+    partial class AddRiskGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,37 +41,6 @@ namespace easylend.Migrations
                         .IsUnique();
 
                     b.ToTable("Applications");
-                });
-
-            modelBuilder.Entity("easylend.Database.Entities.Goal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("GoalType")
-                        .HasColumnType("int");
-
-                    b.Property<double>("MonthlyAmount")
-                        .HasColumnType("double");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<double>("StartingAmount")
-                        .HasColumnType("double");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("YearLimit")
-                        .HasColumnType("double");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("easylend.Database.Entities.RiskGroup", b =>
@@ -167,15 +138,6 @@ namespace easylend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("easylend.Database.Entities.Goal", b =>
-                {
-                    b.HasOne("easylend.Entities.User", "User")
-                        .WithMany("Goals")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("easylend.Entities.Document", b =>
                 {
                     b.HasOne("easylend.Database.Entities.Application", "Application")
@@ -208,8 +170,6 @@ namespace easylend.Migrations
             modelBuilder.Entity("easylend.Entities.User", b =>
                 {
                     b.Navigation("Application");
-
-                    b.Navigation("Goals");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,7 +12,7 @@ namespace easylend
     {
         public AutoMapper()
         {
-            CreateMap<User, UserDTO>().ForMember(dst => dst.Phone, otp => otp.MapFrom(map => map.PhoneNumber));
+            CreateMap<User, UserDTO>();
             CreateMap<UserDTO, User>();
             CreateMap<Application, ApplicationDTO>()
                 .ForMember(dst => dst.DateSubmitted, otp => otp.MapFrom(map => map.Date))
@@ -32,6 +32,17 @@ namespace easylend
 
             CreateMap<Application, UpdateApplicationDTO>();
             CreateMap<UpdateApplicationDTO, Application>();
+
+            CreateMap<RiskGroup, UpdateRiskGroupDTO>();
+            CreateMap<UpdateRiskGroupDTO, RiskGroup>();
+
+            CreateMap<RiskGroup, GetRiskGroupDTO>();
+            CreateMap<GetRiskGroupDTO, RiskGroup>();
+
+            CreateMap<Goal, UpdateGoalDTO>();
+            CreateMap<UpdateGoalDTO, Goal>()
+                .ForMember(dst => dst.GoalType, otp => otp.MapFrom(map => Enum.Parse(typeof(GoalType), map.GoalType)));
+
         }
     }
 }

@@ -21,11 +21,12 @@ namespace easylend.Entities
         public string PhoneNumber { get; set; }
         public double MinInterestRate { get; set; }
         public virtual Application Application { get; set; }
+        public virtual RiskGroup RiskGroup { get; set; }
+        public virtual ICollection<Goal> Goals { get; set; }
         public virtual ICollection<UserLoan> UserLoans { get; set; }
         public virtual ICollection<Return> Returns { get; set; }
         public virtual ICollection<Loan> Loans { get; set; }
         public virtual ICollection<Withdrawal> Withdrawals { get; set; }
-
         public User()
         {
             DateRegistered = DateTime.Now;
