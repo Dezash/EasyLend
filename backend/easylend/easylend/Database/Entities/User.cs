@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using easylend.Database.Entities;
 using Newtonsoft.Json;
 
@@ -12,6 +13,7 @@ namespace easylend.Entities
         public string Password { get; set; }
         public DateTime Birthdate { get; set; }
         public DateTime DateRegistered { get; set; }
+        public decimal Balance { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string PersonalCode { get; set; }
@@ -19,6 +21,10 @@ namespace easylend.Entities
         public string PhoneNumber { get; set; }
         public double MinInterestRate { get; set; }
         public virtual Application Application { get; set; }
+        public virtual ICollection<UserLoan> UserLoans { get; set; }
+        public virtual ICollection<Return> Returns { get; set; }
+        public virtual ICollection<Loan> Loans { get; set; }
+        public virtual ICollection<Withdrawal> Withdrawals { get; set; }
 
         public User()
         {
