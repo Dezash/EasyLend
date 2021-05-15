@@ -14,6 +14,7 @@ import {
     FormControl,
     InputLabel,
 } from '@material-ui/core';
+import httpClient from '../../client/httpClient';
 
 
 export default function Settings() {
@@ -22,32 +23,19 @@ export default function Settings() {
     const [group, setGroup] = React.useState('');
     const [user, setUser] = useState([]);
 
-    const fetchRiskGroups = async () => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}RiskGroup`);
-        const data = await res.json();
-        return data;
-      }
-
-    const fetchUser = async() => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}User/1`);
-        const data = await res.json();
-        return data;
-    }
-
-
     const handleChange = (event) => {
       setGroup(event.target.value);
     };
     
     useEffect(() => {
         const getRiskGroups = async () => {
-            const riskGroupList = await fetchRiskGroups();
+            const riskGroupList = await httpClient.get('riskgroup');
             setRiskGroups(riskGroupList);
             console.log(riskGroupList);
         }
 
         const getUsers = async() => {
-            const user = await fetchUser();
+            const user = await httpClient.get('user/1');
             setUser(user);
             console.log(user);
         }
