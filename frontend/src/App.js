@@ -5,9 +5,10 @@ import ApplicationList from './components/Applications/ApplicationList'
 import Application from './components/Applications/Application'
 import ApplyForm from './components/Applications/ApplyForm'
 import { makeStyles } from '@material-ui/core/styles';
-import React, { Component } from 'react';
+import React from 'react';
 import GoalList from './components/Goals/GoalList';
 import Settings from './components/User/Settings';
+import Homepage from './components/Homepage/Homepage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,8 @@ function App() {
           <div className={classes.toolbar} />
 
           <Switch>
-            <Route path='/' exact component={ApplicationList}></Route>
+            <Route path='/' exact component={Homepage}></Route>
+            <Route path='/applications' component={ApplicationList}></Route>
             <Route path="/apply" component={ApplyForm} />
             <Route path="/applications/:id" component={Application} />
             <Route path="/goals" component={GoalList} />

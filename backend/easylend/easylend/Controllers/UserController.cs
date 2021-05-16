@@ -42,11 +42,6 @@ namespace easylend.Controllers
                 var user = _mapper.Map<User>(userDto);
 
                 result.Email = user.Email;
-                result.Name = user.Name;
-                result.Password = user.Password;
-                result.Birthdate = user.Birthdate;
-                result.LastName = user.LastName;
-                result.PersonalCode = user.PersonalCode;
                 result.Address = user.Address;
                 result.PhoneNumber = user.PhoneNumber;
                 result.MinInterestRate = user.MinInterestRate;
