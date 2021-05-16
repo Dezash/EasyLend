@@ -41,14 +41,14 @@ namespace easylend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> submit([FromBody]int amount)
+        public async Task<IActionResult> submit([FromBody] NewAmountDTO newAmountDto)
         {
             int id = 2;
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
 
             var newLoan = new Loan()
             {
-                Amount = amount,
+                Amount = newAmountDto.Amount,
                 EndDate = DateTime.Now.AddDays(30),
                 StartDate = DateTime.Now,
                 InterestRate = 0.05m,
