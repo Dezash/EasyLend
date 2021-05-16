@@ -51,7 +51,7 @@ function App() {
               <Route path="/applications/:id" component={Application} />
               <Route path="/goals" component={GoalList} />
               <Route path="/settings" component={Settings} />
-              <Route path="/loans" component={LoanList} />
+              <Route path="/loans" exact component={LoanList} />
               <Route path="/loans/:id" component={Loan} />
               <Route path="/requestloan" component={LoanForm} />
               <Route render={() => (
