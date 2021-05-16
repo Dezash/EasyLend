@@ -41,7 +41,7 @@ namespace easylend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> submit(int amount)
+        public async Task<IActionResult> submit([FromBody]int amount)
         {
             int id = 2;
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
