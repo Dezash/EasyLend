@@ -99,12 +99,11 @@ namespace easylend.Controllers
                     User = investor
                 };
 
-                loan.IsOpen = false;
-
                 await _dbContext.Returns.AddAsync(newReturn);
-                await _dbContext.SaveChangesAsync();
             }
 
+            loan.IsOpen = false;
+            await _dbContext.SaveChangesAsync();
             return Ok();
         }
     }

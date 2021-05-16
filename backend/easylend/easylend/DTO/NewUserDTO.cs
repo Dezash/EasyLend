@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace easylend.DTO
 {
     public class NewUserDTO
     {
         public string Email { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
