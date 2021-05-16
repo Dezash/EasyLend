@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using easylend.Database.Entities;
 
 namespace easylend.DTO
@@ -7,7 +8,9 @@ namespace easylend.DTO
     {
         public int Id { get; set; }
         public string Email { get; set; }
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DateRegistered { get; set; }
         public decimal Balance { get; set; }
         public string Name { get; set; }
