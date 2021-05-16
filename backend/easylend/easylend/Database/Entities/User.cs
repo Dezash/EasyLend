@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using easylend.Database.Entities;
 using Newtonsoft.Json;
 
@@ -11,7 +12,9 @@ namespace easylend.Entities
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DateRegistered { get; set; }
         public decimal Balance { get; set; }
         public string Name { get; set; }
