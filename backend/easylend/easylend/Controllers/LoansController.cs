@@ -32,6 +32,7 @@ namespace easylend.Controllers
             return _mapper.Map<List<GetLoanDTO>>(loans);
         }
 
+        [HttpGet("{id}")]
         public async Task<GetLoanDTO> getLoansView(int id)
         {
             var loans = await _dbContext.Loans.FirstOrDefaultAsync(l => l.User.Id == id);
