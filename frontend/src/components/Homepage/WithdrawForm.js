@@ -117,12 +117,12 @@ export default function WithdrawForm(props) {
                     </form>
                     <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="success">
-                        Pavedimas pradėtas!
+                        Withdrawal request sent!
                         </Alert>
                     </Snackbar>
                     <Snackbar open={openFailure} autoHideDuration={6000} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="error">
-                        Pavedimo pradėti nepavyko!
+                        Withdrawal request failed!
                         </Alert>
                     </Snackbar>
                 </div>
