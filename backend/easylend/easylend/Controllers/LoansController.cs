@@ -27,7 +27,7 @@ namespace easylend.Controllers
         public async Task<List<GetLoanDTO>> getLoansView()
         {
             int id = 2;
-            var loans = await _dbContext.Loans.Where(l => l.User.Id == id).ToListAsync();
+            var loans = await _dbContext.Loans.Where(l => l.User.Id == id && l.IsOpen).ToListAsync();
 
             return _mapper.Map<List<GetLoanDTO>>(loans);
         }
@@ -41,7 +41,7 @@ namespace easylend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> submit(int amount)
+        public async Task<IActionResult> submit([FromBody]int amount)
         {
             int id = 2;
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
@@ -98,6 +98,8 @@ namespace easylend.Controllers
                     Loan = loan,
                     User = investor
                 };
+
+                loan.IsOpen = false;
 
                 await _dbContext.Returns.AddAsync(newReturn);
                 await _dbContext.SaveChangesAsync();
