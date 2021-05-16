@@ -46,7 +46,7 @@ function App() {
           <ToastProvider>
             <Switch>
               <Route path='/' exact component={Homepage}></Route>
-              <Route path='/applications' component={ApplicationList}></Route>
+              <Route path='/applications' exact component={ApplicationList}></Route>
               <Route path="/apply" component={ApplyForm} />
               <Route path="/applications/:id" component={Application} />
               <Route path="/goals" component={GoalList} />
