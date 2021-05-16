@@ -54,16 +54,9 @@ const Loan = (props) => {
         <ThemeProvider>
             <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
                 <div style={{ position: 'absolute', right: 30 }}>
-                    <ButtonGroup
-                        variant="contained"
-                        color="primary"
-                        aria-label="full-width contained primary button group"
-                    >
-                        <Button color="primary" onClick={() => { returnLoan() }}>Return loan</Button>
-                    </ButtonGroup>
+                    <Button color="primary" variant="contained" onClick={() => { returnLoan() }}>Return loan</Button>
                 </div>
             </div>
-            <Divider />
             <Typography variant="h5" component="h2" style={{ margin: '20px' }}>
                 Loan info
                 </Typography>
@@ -85,8 +78,8 @@ const Loan = (props) => {
                                 <TollIcon color="primary" />
                             </ListItemIcon>
                             <ListItemText
-                                primary="Interst rate"
-                                secondary={`%${loan.interestRate}`}
+                                primary="Interest rate"
+                                secondary={`${loan.interestRate}%`}
                             />
                         </ListItem>
                         <ListItem key="amountToPay">
