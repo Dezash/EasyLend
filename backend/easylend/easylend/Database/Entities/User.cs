@@ -30,6 +30,11 @@ namespace easylend.Entities
         public User()
         {
             DateRegistered = DateTime.Now;
+            Goals = new List<Goal>();
+            UserLoans = new List<UserLoan>();
+            Returns = new List<Return>();
+            Loans = new List<Loan>();
+            Withdrawals = new List<Withdrawal>();
         }
     }
 }

@@ -1,25 +1,24 @@
-﻿using easylend.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using easylend.Database.Entities;
+using easylend.Entities;
 
-namespace easylend.Database.Entities
+namespace easylend.DTO
 {
-    public class Loan
+    public class GetLoanDTO
     {
-        public int Id { get; set; }
         public decimal InterestRate { get; set; }
         public decimal Amount { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public decimal AmountToPay { get; set; }
         public bool IsOpen { get; set; }
+        [JsonIgnore]
         public virtual User User { get; set; }
         public virtual ICollection<Return> Returns { get; set; }
-        public virtual ICollection<UserLoan> UserLoans {get; set;}
-
-        public Loan()
-        {
-            Returns = new List<Return>();
-            UserLoans = new List<UserLoan>();
-        }
+        public virtual ICollection<UserLoan> UserLoans { get; set; }
     }
 }

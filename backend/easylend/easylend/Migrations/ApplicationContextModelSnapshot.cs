@@ -72,6 +72,67 @@ namespace easylend.Migrations
                     b.ToTable("Goals");
                 });
 
+            modelBuilder.Entity("easylend.Database.Entities.Loan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<decimal>("InterestRate")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<bool>("IsOpen")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Loans");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.Return", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime");
+
+                    b.Property<decimal>("Fee")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int?>("LoanId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoanId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Returns");
+                });
+
             modelBuilder.Entity("easylend.Database.Entities.RiskGroup", b =>
                 {
                     b.Property<int>("Id")
@@ -87,6 +148,55 @@ namespace easylend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RiskGroups");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.UserLoan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int?>("InvestorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LoanId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvestorId");
+
+                    b.HasIndex("LoanId");
+
+                    b.ToTable("UserLoans");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.Withdrawal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Iban")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Withdrawals");
                 });
 
             modelBuilder.Entity("easylend.Entities.Document", b =>
@@ -120,6 +230,9 @@ namespace easylend.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<DateTime>("Birthdate")
                         .HasColumnType("datetime");
@@ -176,6 +289,54 @@ namespace easylend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("easylend.Database.Entities.Loan", b =>
+                {
+                    b.HasOne("easylend.Entities.User", "User")
+                        .WithMany("Loans")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.Return", b =>
+                {
+                    b.HasOne("easylend.Database.Entities.Loan", "Loan")
+                        .WithMany("Returns")
+                        .HasForeignKey("LoanId");
+
+                    b.HasOne("easylend.Entities.User", "User")
+                        .WithMany("Returns")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Loan");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.UserLoan", b =>
+                {
+                    b.HasOne("easylend.Entities.User", "Investor")
+                        .WithMany("UserLoans")
+                        .HasForeignKey("InvestorId");
+
+                    b.HasOne("easylend.Database.Entities.Loan", "Loan")
+                        .WithMany("UserLoans")
+                        .HasForeignKey("LoanId");
+
+                    b.Navigation("Investor");
+
+                    b.Navigation("Loan");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.Withdrawal", b =>
+                {
+                    b.HasOne("easylend.Entities.User", "User")
+                        .WithMany("Withdrawals")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("easylend.Entities.Document", b =>
                 {
                     b.HasOne("easylend.Database.Entities.Application", "Application")
@@ -200,6 +361,13 @@ namespace easylend.Migrations
                     b.Navigation("Documents");
                 });
 
+            modelBuilder.Entity("easylend.Database.Entities.Loan", b =>
+                {
+                    b.Navigation("Returns");
+
+                    b.Navigation("UserLoans");
+                });
+
             modelBuilder.Entity("easylend.Database.Entities.RiskGroup", b =>
                 {
                     b.Navigation("Users");
@@ -210,6 +378,14 @@ namespace easylend.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Goals");
+
+                    b.Navigation("Loans");
+
+                    b.Navigation("Returns");
+
+                    b.Navigation("UserLoans");
+
+                    b.Navigation("Withdrawals");
                 });
 #pragma warning restore 612, 618
         }

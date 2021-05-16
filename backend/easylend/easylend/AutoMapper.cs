@@ -2,8 +2,6 @@
 using easylend.Database.Entities;
 using easylend.DTO;
 using easylend.Entities;
-using Google.Protobuf.WellKnownTypes;
-using System;
 using Enum = System.Enum;
 
 namespace easylend
@@ -43,6 +41,12 @@ namespace easylend
             CreateMap<UpdateGoalDTO, Goal>()
                 .ForMember(dst => dst.GoalType, otp => otp.MapFrom(map => Enum.Parse(typeof(GoalType), map.GoalType)));
 
+            CreateMap<Loan, LoanDTO>();
+            CreateMap<LoanDTO, Loan>();
+
+            CreateMap<GetLoanDTO, Loan>();
+            CreateMap<Loan, GetLoanDTO>()
+                .ForMember(dst => dst.AmountToPay, otp => otp.MapFrom(map => (map.Amount * map.InterestRate / 100) + map.Amount));
         }
     }
 }

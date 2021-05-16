@@ -11,7 +11,6 @@ using easylend.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace easylend.Controllers
 {
@@ -20,21 +19,17 @@ namespace easylend.Controllers
     public class ApplicationsController : ControllerBase
     {
 
-        private readonly ILogger<WeatherForecastController> _logger;
         private readonly ApplicationContext _dbContext;
         private readonly IMapper _mapper;
-        //  private readonly IConfiguration _configuration;
-        public ApplicationsController(ApplicationContext dbContext, ILogger<WeatherForecastController> logger, IMapper mapper)
+        public ApplicationsController(ApplicationContext dbContext, IMapper mapper)
         {
-            _logger = logger;
             _dbContext = dbContext;
             _mapper = mapper;
         }
 
 
-        // GET: api/Applications
         [HttpGet]
-        public async Task<List<ApplicationDTO>> Get()
+        public async Task<List<ApplicationDTO>> getApplicationsListView()
         {
             var applications = await _dbContext.Applications.Include(a => a.User)
                                                                          .Include(a => a.Documents)
@@ -44,9 +39,8 @@ namespace easylend.Controllers
             return _mapper.Map<List<ApplicationDTO>>(applications);
         }
 
-        // GET api/Applications/5
         [HttpGet("{id}")]
-        public async Task<ApplicationDTO> Get(int id)
+        public async Task<ApplicationDTO> getApplicationView(int id)
         {
             var application = await _dbContext.Applications.Include(a => a.User)
                                                            .Include(a => a.Documents)
@@ -63,9 +57,8 @@ namespace easylend.Controllers
             return applicationDto;
         }
 
-        // POST api/Applications
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm(Name = "file")] ICollection<IFormFile> applicationDto)
+        public async Task<IActionResult> createApplication([FromForm(Name = "file")] ICollection<IFormFile> applicationDto)
         {
             var newApplication = new Application()
             {
@@ -108,9 +101,8 @@ namespace easylend.Controllers
             return new ObjectResult("Created") { StatusCode = 201 };
         }
 
-        // PUT api/Applications/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UpdateApplicationDTO applicationDto)
+        public async Task<IActionResult> updateApplication(int id, [FromBody] UpdateApplicationDTO applicationDto)
         {
             var result = await _dbContext.Applications.SingleOrDefaultAsync(x => x.Id == id);
 
@@ -124,9 +116,8 @@ namespace easylend.Controllers
             return BadRequest();
         }
 
-        // DELETE api/Applications/5
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task deleteApplication(int id)
         {
             var item = await _dbContext.Applications.SingleOrDefaultAsync(x => x.Id == id);
 
@@ -134,6 +125,15 @@ namespace easylend.Controllers
 
             _dbContext.Remove(item);
             await _dbContext.SaveChangesAsync();
+        }
+
+        [HttpGet("document/{id}")]
+        public async Task<IActionResult> getDocument(int id)
+        {
+            var document = await _dbContext.Documents.FirstOrDefaultAsync(x => x.ID == id);
+            var file = new MemoryStream(document.FileData);
+
+            return File(file, "application/octet-stream", document.FileName);
         }
     }
 }

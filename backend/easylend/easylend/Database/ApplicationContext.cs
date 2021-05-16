@@ -12,9 +12,13 @@ namespace easylend.Database
         public DbSet<Document> Documents { get; set; }
         public DbSet<Goal> Goals { get; set; }
         public DbSet<RiskGroup> RiskGroups { get; set; }
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<Return> Returns { get; set; }
+        public DbSet<UserLoan> UserLoans { get; set; }
+        public DbSet<Withdrawal> Withdrawals { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            //
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
