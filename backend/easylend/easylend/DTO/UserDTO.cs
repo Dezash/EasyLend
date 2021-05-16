@@ -9,6 +9,7 @@ namespace easylend.DTO
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime DateRegistered { get; set; }
+        public decimal Balance { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string PersonalCode { get; set; }
