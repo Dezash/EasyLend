@@ -1,8 +1,6 @@
 ﻿using easylend.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace easylend.Database.Entities
 {
@@ -16,8 +14,12 @@ namespace easylend.Database.Entities
         public bool IsOpen { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Return> Returns { get; set; }
-
         public virtual ICollection<UserLoan> UserLoans {get; set;}
 
+        public Loan()
+        {
+            Returns = new List<Return>();
+            UserLoans = new List<UserLoan>();
+        }
     }
 }

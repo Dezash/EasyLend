@@ -9,8 +9,8 @@ using easylend.Database;
 namespace easylend.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210515154035_AddWithdrawals")]
-    partial class AddWithdrawals
+    [Migration("20210515221138_AddALotOfEntities")]
+    partial class AddALotOfEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,37 @@ namespace easylend.Migrations
                     b.ToTable("Applications");
                 });
 
+            modelBuilder.Entity("easylend.Database.Entities.Goal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("GoalType")
+                        .HasColumnType("int");
+
+                    b.Property<double>("MonthlyAmount")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<double>("StartingAmount")
+                        .HasColumnType("double");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("YearLimit")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Goals");
+                });
+
             modelBuilder.Entity("easylend.Database.Entities.Loan", b =>
                 {
                     b.Property<int>("Id")
@@ -71,7 +102,78 @@ namespace easylend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Loan");
+                    b.ToTable("Loans");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.Return", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime");
+
+                    b.Property<decimal>("Fee")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int?>("LoanId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoanId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Returns");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.RiskGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<double>("MaxLoanAmount")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RiskGroups");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.UserLoan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int?>("InvestorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LoanId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvestorId");
+
+                    b.HasIndex("LoanId");
+
+                    b.ToTable("UserLoans");
                 });
 
             modelBuilder.Entity("easylend.Database.Entities.Withdrawal", b =>
@@ -96,7 +198,7 @@ namespace easylend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Withdrawal");
+                    b.ToTable("Withdrawals");
                 });
 
             modelBuilder.Entity("easylend.Entities.Document", b =>
@@ -161,7 +263,12 @@ namespace easylend.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
+                    b.Property<int?>("RiskGroupId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RiskGroupId");
 
                     b.ToTable("Users");
                 });
@@ -175,6 +282,15 @@ namespace easylend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("easylend.Database.Entities.Goal", b =>
+                {
+                    b.HasOne("easylend.Entities.User", "User")
+                        .WithMany("Goals")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("easylend.Database.Entities.Loan", b =>
                 {
                     b.HasOne("easylend.Entities.User", "User")
@@ -182,6 +298,36 @@ namespace easylend.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.Return", b =>
+                {
+                    b.HasOne("easylend.Database.Entities.Loan", "Loan")
+                        .WithMany("Returns")
+                        .HasForeignKey("LoanId");
+
+                    b.HasOne("easylend.Entities.User", "User")
+                        .WithMany("Returns")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Loan");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.UserLoan", b =>
+                {
+                    b.HasOne("easylend.Entities.User", "Investor")
+                        .WithMany("UserLoans")
+                        .HasForeignKey("InvestorId");
+
+                    b.HasOne("easylend.Database.Entities.Loan", "Loan")
+                        .WithMany("UserLoans")
+                        .HasForeignKey("LoanId");
+
+                    b.Navigation("Investor");
+
+                    b.Navigation("Loan");
                 });
 
             modelBuilder.Entity("easylend.Database.Entities.Withdrawal", b =>
@@ -203,16 +349,43 @@ namespace easylend.Migrations
                     b.Navigation("Application");
                 });
 
+            modelBuilder.Entity("easylend.Entities.User", b =>
+                {
+                    b.HasOne("easylend.Database.Entities.RiskGroup", "RiskGroup")
+                        .WithMany("Users")
+                        .HasForeignKey("RiskGroupId");
+
+                    b.Navigation("RiskGroup");
+                });
+
             modelBuilder.Entity("easylend.Database.Entities.Application", b =>
                 {
                     b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.Loan", b =>
+                {
+                    b.Navigation("Returns");
+
+                    b.Navigation("UserLoans");
+                });
+
+            modelBuilder.Entity("easylend.Database.Entities.RiskGroup", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("easylend.Entities.User", b =>
                 {
                     b.Navigation("Application");
 
+                    b.Navigation("Goals");
+
                     b.Navigation("Loans");
+
+                    b.Navigation("Returns");
+
+                    b.Navigation("UserLoans");
 
                     b.Navigation("Withdrawals");
                 });
