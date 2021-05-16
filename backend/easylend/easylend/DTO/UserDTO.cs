@@ -16,6 +16,8 @@ namespace easylend.DTO
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
         public double MinInterestRate { get; set; }
+
         public int RiskGroupId { get; set; }
+        public string RiskGroupName { get; set; }
     }
 }
