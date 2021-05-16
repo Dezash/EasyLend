@@ -55,7 +55,7 @@ export default function LoanList() {
                         {loans.map((loan) => (
                             <TableRow key={loan.id}>
                                 <TableCell>{loan.amount}</TableCell>
-                                <TableCell>{loan.interestToPay}</TableCell>
+                                <TableCell>{`${loan.interestRate}%`}</TableCell>
                                 <TableCell>{loan.amountToPay}</TableCell>
                                 <TableCell>{loan.startDate}</TableCell>
                                 <TableCell>{loan.endDate}</TableCell>
