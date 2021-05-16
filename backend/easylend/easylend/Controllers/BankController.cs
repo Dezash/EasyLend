@@ -58,7 +58,7 @@ namespace easylend.Controllers
         [HttpPut("withdraw")]
         public async Task<IActionResult> requestWithdraw(decimal amount, string IBan)
         {
-            int userId = 2;
+            int userId = 1;
             await SendRequest(amount);
 
             var setUser = SetUserBalance(userId, amount, IBan);
@@ -104,7 +104,7 @@ namespace easylend.Controllers
         [HttpGet("getReport")]
         public async Task<IActionResult> getReport(DateTime start, DateTime end)
         {
-            int id = 2;
+            int id = 1;
 
             var pure = PureReturn(id, start, end);
             var tax = TaxReturn(id, start, end);
