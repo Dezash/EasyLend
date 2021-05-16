@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.react-toast-notifications__container {
+  padding-top: 5% !important;
+}

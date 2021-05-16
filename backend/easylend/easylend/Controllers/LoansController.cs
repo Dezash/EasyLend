@@ -24,22 +24,31 @@ namespace easylend.Controllers
         }
 
         [HttpGet]
-        public async Task<List<GetLoanDTO>> getLoansView(int userId)
+        public async Task<List<GetLoanDTO>> getLoansView()
         {
-            var loans = await _dbContext.Loans.Where(l => l.User.Id == userId).ToListAsync();
+            int id = 2;
+            var loans = await _dbContext.Loans.Where(l => l.User.Id == id && l.IsOpen).ToListAsync();
 
             return _mapper.Map<List<GetLoanDTO>>(loans);
         }
 
+        [HttpGet("{id}")]
+        public async Task<GetLoanDTO> getLoansView(int id)
+        {
+            var loans = await _dbContext.Loans.FirstOrDefaultAsync(l => l.Id == id);
+
+            return _mapper.Map<GetLoanDTO>(loans);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> submit(int amount)
+        public async Task<IActionResult> submit([FromBody] NewAmountDTO newAmountDto)
         {
             int id = 2;
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
 
             var newLoan = new Loan()
             {
-                Amount = amount,
+                Amount = newAmountDto.Amount,
                 EndDate = DateTime.Now.AddDays(30),
                 StartDate = DateTime.Now,
                 InterestRate = 0.05m,
@@ -54,7 +63,7 @@ namespace easylend.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("returnLoan/{id}")]
         public async Task<IActionResult> returnLoan(int id)
         {
             var loan = await _dbContext.Loans
@@ -91,9 +100,10 @@ namespace easylend.Controllers
                 };
 
                 await _dbContext.Returns.AddAsync(newReturn);
-                await _dbContext.SaveChangesAsync();
             }
 
+            loan.IsOpen = false;
+            await _dbContext.SaveChangesAsync();
             return Ok();
         }
     }
