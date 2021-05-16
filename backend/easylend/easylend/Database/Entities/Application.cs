@@ -11,6 +11,7 @@ namespace easylend.Database.Entities
         [Key]
         [JsonIgnore]
         public int Id { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         public Status Status { get; set; }
         [JsonIgnore]

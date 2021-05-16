@@ -51,7 +51,7 @@ namespace easylend.Controllers
 
             foreach (var document in applicationDto.Documents)
             {
-                document.URL = $"{myUrl}/api/Documents/{document.ID}";
+                document.URL = $"{myUrl}/api/application/document/{document.ID}";
             }
 
             return applicationDto;
