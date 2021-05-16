@@ -55,7 +55,7 @@ export default function WithdrawForm(props) {
 
 
     const requestWithdraw = async () => {
-        var result = await axios.put(`${process.env.REACT_APP_API_URL}Bank/withdraw?amount=${amount}&iban=${iban}`);
+        var result = await axios.put(`Bank/withdraw?amount=${amount}&iban=${iban}`);
         if(result.status == 200){
             setOpenSuccess(true);
         }else{
