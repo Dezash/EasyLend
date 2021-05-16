@@ -36,7 +36,7 @@ namespace easylend.Controllers
             var result = await _dbContext.Users.Include(r => r.RiskGroup)
                                                    .SingleOrDefaultAsync(x => x.Id == id);
 
-            var riskGroup = await _dbContext.RiskGroups.SingleOrDefaultAsync(x => x.Id == userDto.RiskGroup.Id);
+            var riskGroup = await _dbContext.RiskGroups.SingleOrDefaultAsync(x => x.Id == userDto.RiskGroupId);
             if (result != null)
             {
                 var user = _mapper.Map<User>(userDto);
