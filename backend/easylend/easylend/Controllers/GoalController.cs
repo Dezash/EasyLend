@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using easylend.Database;
@@ -27,7 +28,9 @@ namespace easylend.Controllers
         [HttpGet]
         public async Task<List<UpdateGoalDTO>> getGoalListView()
         {
-            var goals = await _dbContext.Goals.ToListAsync();
+            int id = 1;
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var goals = await _dbContext.Goals.Where(g => g.Id == user.Id).ToListAsync();
 
             return _mapper.Map<List<UpdateGoalDTO>>(goals);
         }
