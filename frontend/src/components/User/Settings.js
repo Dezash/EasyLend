@@ -85,9 +85,11 @@ export default function Settings() {
     }
 
     const editUser = async () => {
+        const riskGroupName = riskGroups.filter((x) => x.id === group.id)[0].name;
+        setUser({...user, email: email, phoneNumber: phone, address: address, minInterestRate: parseFloat(rate), riskGroupName: riskGroupName, riskGroupId: parseInt(group.id)});
         const userData = { email: email, phoneNumber: phone, address: address, minInterestRate: parseFloat(rate), riskGroupId: parseInt(group.id) };
         await httpClient.put('User/1', userData);
-        window.location.reload();
+        closeEdit();
     }
 
     useEffect(() => {
@@ -214,7 +216,7 @@ export default function Settings() {
                 <Fade in={open}>
                 <div className={classes.paper}>
                     <h2 id="modal-title">Change personal info</h2>
-                    <form className={classes.form}>
+                    <form className={classes.form} onSubmit={submitForm}>
                         <FormControl style={{marginBottom: "10px"}}>
                             <TextField type="email" id="edit-email" label="Email address" variant="outlined" value={email} onChange={handleEmailChange} required/>
                             <FormHelperText id="helper-email">Please enter your new email address.</FormHelperText>
@@ -240,7 +242,7 @@ export default function Settings() {
                                 {riskGroups.map((group) => (<MenuItem value={group.id}>{group.name}</MenuItem>))}
                             </Select>
                         </FormControl>
-                        <Button type="submit" style={{alignSelf: "center"}} variant="contained" color="primary" onClick={submitForm}>Change personal info</Button>
+                        <Button type="submit" style={{alignSelf: "center"}} variant="contained" color="primary">Change personal info</Button>
                     </form>
                 </div>
                 
