@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Input from '@material-ui/core/Input';
 import { useState } from 'react';
-import axios from 'axios';
+import httpClient from '../../client/httpClient';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +42,6 @@ export default function ApplyForm(props) {
     }
 
     const createApplication = async (files) => {
-        //console.log(files)
         const formData = new FormData();
 
         formData.append(
@@ -57,8 +56,7 @@ export default function ApplyForm(props) {
             files.statement.name
         );
 
-        const response = axios.post(`${process.env.REACT_APP_API_URL}applications`, formData);
-        await response.data
+        await httpClient.post('applications', formData);
 
         props.history.push('/');
     }

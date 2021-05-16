@@ -20,6 +20,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import CheckIcon from '@material-ui/icons/Check';
 import EcoIcon from '@material-ui/icons/Eco';
 import SettingsIcon from '@material-ui/icons/Settings';
+import HomeIcon from '@material-ui/icons/Home';
 import { Link } from "react-router-dom";
 
 
@@ -146,10 +147,10 @@ export default function Navigation() {
                 </div>
                 <Divider />
                 <List>
-                    {[{ title: 'Apply', link: "/apply" }].map((navItem, index) => (
+                    {[{ title: 'Home', link: '/' }, { title: 'Apply', link: '/apply' }].map((navItem, index) => (
                         <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItem button>
-                                <ListItemIcon>{index % 2 === 0 ? <CheckIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemIcon>{index === 0 ? <HomeIcon /> : <CheckIcon />}</ListItemIcon>
                                 <ListItemText primary={navItem.title} />
                             </ListItem>
                         </Link>
@@ -157,7 +158,7 @@ export default function Navigation() {
                 </List>
                 <Divider />
                 <List>
-                    {[{ title: 'Applications', link: "/" }].map((navItem, index) => (
+                    {[{ title: 'Applications', link: "/applications" }].map((navItem, index) => (
                         <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItem button>
                                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>

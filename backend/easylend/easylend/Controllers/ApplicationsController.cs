@@ -98,7 +98,7 @@ namespace easylend.Controllers
 
             await _dbContext.SaveChangesAsync();
 
-            return new ObjectResult("geh") { StatusCode = 201 };
+            return new ObjectResult("Created") { StatusCode = 201 };
         }
 
         [HttpPut("{id}")]

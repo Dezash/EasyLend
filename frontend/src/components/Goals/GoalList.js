@@ -9,27 +9,22 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import httpClient from '../../client/httpClient';
 
 
 export default function GoalList() {
     const { push } = useHistory();
     const [goals, setGoals] = useState([]);
 
-    const fetchGoals = async () => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}Goal`)
-        const data = await res.json()
-        return data
-      }
-    
-      useEffect(() => {
-        const getGoals = async () => {
-          const goalList = await fetchGoals()
-          console.log(goalList)
-          setGoals(goalList)
-        }
-    
-        getGoals()
-      }, [push])
+    useEffect(() => {
+    const getGoals = async () => {
+        const goalList = await httpClient.get('goal');
+        console.log(goalList)
+        setGoals(goalList)
+    }
+
+    getGoals()
+    }, [push])
 
     return (
         <>

@@ -11,6 +11,8 @@ namespace easylend.Database.Entities
         public double MaxLoanAmount { get; set; }
         [JsonIgnore]
         public virtual ICollection<User> Users { get; set; }
+        [JsonIgnore]
+        public ICollection<User> Users { get; set; }
 
         public RiskGroup()
         {

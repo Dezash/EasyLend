@@ -11,27 +11,22 @@ import { Link } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import httpClient from '../../client/httpClient';
 
 
 export default function ApplicationList() {
     const { push } = useHistory();
     const [applications, setApplications] = useState([])
 
-    const fetchApplications = async () => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}applications`)
-        const data = await res.json()
-        return data
-      }
-    
-      useEffect(() => {
-        const getApplications = async () => {
-          const applicationList = await fetchApplications()
-          console.log(applicationList)
-          setApplications(applicationList)
-        }
-    
-        getApplications()
-      }, [push])
+    useEffect(() => {
+    const getApplications = async () => {
+        const applicationList = await httpClient.get('applications');
+        console.log(applicationList)
+        setApplications(applicationList)
+    }
+
+    getApplications()
+    }, [push])
 
     return (
         <>

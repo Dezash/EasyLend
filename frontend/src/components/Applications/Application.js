@@ -25,7 +25,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import React from 'react';
 import DocumentItem from './DocumentItem';
-import axios from 'axios';
+import httpClient from '../../client/httpClient';
 
 
 const theme = createMuiTheme({
@@ -42,31 +42,17 @@ const theme = createMuiTheme({
 
 const Application = (props) => {
     const appId = props.match.params.id
-    const headers = {
-        'Content-Type': 'application/json'
-    }
     const [application, setApplication] = useState([])
-
-    const fetchApplication = async (id) => {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}applications/${id}`)
-        const data = await res.data
-        return data
-    }
 
     const setApplicationStatus = async (newStatus) => {
         setApplication({ ...application, status: newStatus })
         application.status = newStatus
 
-        const res = await axios.put(`${process.env.REACT_APP_API_URL}applications/${appId}`, application, {
-            headers: headers,
-        })
-        const data = await res.data
-        return data
+        return await httpClient.put(`applications/${appId}`, application)
     }
 
     const deleteApplication = async () => {
-        const response = axios.delete(`${process.env.REACT_APP_API_URL}applications/${appId}`);
-        await response.data
+        await httpClient.delete(`applications/${appId}`);
         props.history.push('/');
     }
 
@@ -88,7 +74,7 @@ const Application = (props) => {
 
     useEffect(() => {
         const getApplication = async (id) => {
-            const application = await fetchApplication(id)
+            const application = await httpClient.get(`applications/${id}`)
             console.log(application)
             setApplication(application)
         }
