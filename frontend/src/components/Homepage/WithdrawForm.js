@@ -47,11 +47,11 @@ export default function WithdrawForm(props) {
     }
 
     const requestWithdraw = async () => {
-        var result = await axios.put(`Bank/withdraw?amount=${amount}&iban=${iban}`);
-        if(result.status == 200){
+        try{
+            var result = await axios.put(`Bank/withdraw?amount=${amount}&iban=${iban}`);
             addToast('Withdrawal request sent!', { appearance: 'success' });
-        }else{
-            addToast(result.status.errorMessage, { appearance: 'error', autoDismiss: true });
+        }catch {
+            addToast('Withdrawal request failed!', { appearance: 'error' });
         }
     }
 
