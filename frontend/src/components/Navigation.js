@@ -22,6 +22,7 @@ import EcoIcon from '@material-ui/icons/Eco';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HomeIcon from '@material-ui/icons/Home';
 import { Link } from "react-router-dom";
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 
 
 const drawerWidth = 240;
@@ -147,10 +148,12 @@ export default function Navigation() {
                 </div>
                 <Divider />
                 <List>
-                    {[{ title: 'Home', link: '/' }, { title: 'Apply', link: '/apply' }].map((navItem, index) => (
+                    {[{ title: 'Home', link: '/' }, { title: 'Apply', link: '/apply' }, { title: 'Loans', link: '/loans'}].map((navItem, index) => (
                         <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItem button>
-                            <ListItemIcon>{index === 0 ? <HomeIcon /> : <CheckIcon />}</ListItemIcon>
+                            <ListItemIcon>{index === 0 ? <HomeIcon /> : index === 1 ? <CheckIcon /> : <LocalAtmIcon />}
+                            
+                            </ListItemIcon>
                                 <ListItemText primary={navItem.title} />
                             </ListItem>
                         </Link>
