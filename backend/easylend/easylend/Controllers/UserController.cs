@@ -15,14 +15,14 @@ namespace easylend.Controllers
     {
         private readonly ApplicationContext _dbContext;
         private readonly IMapper _mapper;
-        public UserController(ApplicationContext dbContext, ILogger<WeatherForecastController> logger, IMapper mapper)
+        public UserController(ApplicationContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
 
         [HttpGet("{id}")]
-        public async Task<UserDTO> Get(int id)
+        public async Task<UserDTO> getSettingsView(int id)
         {
             var goal = await _dbContext.Users.Include(r => r.RiskGroup)
                 .FirstAsync(x => x.Id == id);
@@ -31,12 +31,12 @@ namespace easylend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UserDTO userDto)
+        public async Task<IActionResult> changeUserData(int id, [FromBody] UserDTO userDto)
         {
             var result = await _dbContext.Users.Include(r => r.RiskGroup)
-                .SingleOrDefaultAsync(x => x.Id == id);
+                                                   .SingleOrDefaultAsync(x => x.Id == id);
 
-            var riskGroup = await _dbContext.RiskGroups.SingleOrDefaultAsync(x => x.Id == userDto.RiskGroupId);
+            var riskGroup = await _dbContext.RiskGroups.SingleOrDefaultAsync(x => x.Id == userDto.RiskGroup.Id);
             if (result != null)
             {
                 var user = _mapper.Map<User>(userDto);

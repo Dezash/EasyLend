@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using easylend.Entities;
+﻿using easylend.Entities;
 
 namespace easylend.Database.Entities
 {
@@ -14,6 +10,6 @@ namespace easylend.Database.Entities
         public double MonthlyAmount { get; set; }
         public double YearLimit { get; set; }
         public GoalType GoalType { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
     }
 }

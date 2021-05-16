@@ -6,7 +6,7 @@ namespace easylend.Database.Entities
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }
-        public User Investor { get; set; }
-        public Loan Loan { get; set; }
+        public virtual User Investor { get; set; }
+        public virtual Loan Loan { get; set; }
     }
 }

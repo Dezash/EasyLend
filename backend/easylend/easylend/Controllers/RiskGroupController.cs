@@ -16,31 +16,23 @@ namespace easylend.Controllers
     {
         private readonly ApplicationContext _dbContext;
         private readonly IMapper _mapper;
-        //  private readonly IConfiguration _configuration;
-        public RiskGroupController(ApplicationContext dbContext, ILogger<WeatherForecastController> logger, IMapper mapper)
+
+        public RiskGroupController(ApplicationContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<List<UpdateRiskGroupDTO>> Get()
+        public async Task<List<UpdateRiskGroupDTO>> index()
         {
             var applications = await _dbContext.RiskGroups.ToListAsync();
 
             return _mapper.Map<List<UpdateRiskGroupDTO>>(applications);
         }
 
-        [HttpGet("{id}")]
-        public async Task<UpdateRiskGroupDTO> Get(int id)
-        {
-            var riskGroup = await _dbContext.RiskGroups.FirstAsync(x => x.Id == id);
-
-            return _mapper.Map<UpdateRiskGroupDTO>(riskGroup); ;
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UpdateRiskGroupDTO riskGroupDto)
+        public async Task<IActionResult> createGroup([FromBody] UpdateRiskGroupDTO riskGroupDto)
         {
             var newRiskGroup = new RiskGroup()
             {
@@ -55,7 +47,7 @@ namespace easylend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UpdateRiskGroupDTO riskGroupDto)
+        public async Task<IActionResult> updateGroup(int id, [FromBody] UpdateRiskGroupDTO riskGroupDto)
         {
             var result = await _dbContext.RiskGroups.SingleOrDefaultAsync(x => x.Id == id);
 
@@ -73,7 +65,7 @@ namespace easylend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task deleteGroup(int id)
         {
             var item = await _dbContext.RiskGroups.SingleOrDefaultAsync(x => x.Id == id);
 

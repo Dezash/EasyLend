@@ -18,7 +18,7 @@ namespace easylend.Database
         public DbSet<Withdrawal> Withdrawals { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            //
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
