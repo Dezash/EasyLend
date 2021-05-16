@@ -15,6 +15,7 @@ namespace easylend.DTO
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsOpen { get; set; }
+        [JsonIgnore]
         public virtual User User { get; set; }
         [JsonIgnore]
         public virtual ICollection<Return> Returns { get; set; }

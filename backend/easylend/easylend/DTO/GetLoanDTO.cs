@@ -10,6 +10,7 @@ namespace easylend.DTO
 {
     public class GetLoanDTO
     {
+        public int Id { get; set; }
         public decimal InterestRate { get; set; }
         public decimal Amount { get; set; }
         public DateTime StartDate { get; set; }
@@ -18,7 +19,9 @@ namespace easylend.DTO
         public bool IsOpen { get; set; }
         [JsonIgnore]
         public virtual User User { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Return> Returns { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserLoan> UserLoans { get; set; }
     }
 }
