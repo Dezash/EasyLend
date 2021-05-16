@@ -9,6 +9,7 @@ import React from 'react';
 import GoalList from './components/Goals/GoalList';
 import Settings from './components/User/Settings';
 import Homepage from './components/Homepage/Homepage';
+import WithdrawForm from './components/Homepage/WithdrawForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/apply" component={ApplyForm} />
             <Route path="/applications/:id" component={Application} />
             <Route path="/goals" component={GoalList} />
+            <Route path="/withdraw" component={WithdrawForm} />
             <Route path="/settings" component={Settings} />
             <Route render={() => (
               <h1>404 not found</h1>

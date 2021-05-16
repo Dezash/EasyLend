@@ -86,7 +86,7 @@ export default function ApplicationList() {
 
                     <div class={classes.root}>
                         <Button variant="contained" color="primary">Deposit</Button>
-                        <Button variant="contained" color="primary">Withdraw</Button>
+                        <Button variant="contained" color="primary" onClick={() => push('/withdraw')}>Withdraw</Button>
                     </div>
 
                     <div class={classes.root}>
