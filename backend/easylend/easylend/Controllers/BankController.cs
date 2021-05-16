@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AutoMapper;
 using easylend.Database;
+using easylend.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -57,7 +58,8 @@ namespace easylend.Controllers
         [HttpPut("withdraw")]
         public async Task<IActionResult> requestWithdraw(decimal amount, string IBan)
         {
-            var result = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == 1);
+            int userId = 2;
+            var result = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
 
             if (result != null)
             {
@@ -66,10 +68,20 @@ namespace easylend.Controllers
 
                 result.Balance -= amount;
                 await _dbContext.SaveChangesAsync();
-                return Ok();
             }
 
-            return BadRequest();
+            var withdrawal = new Withdrawal()
+            {
+                Amount = amount,
+                Iban = IBan,
+                Date = DateTime.Now,
+                User = result
+            };
+
+            await _dbContext.Withdrawals.AddAsync(withdrawal);
+            await _dbContext.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpGet("getReport")]
