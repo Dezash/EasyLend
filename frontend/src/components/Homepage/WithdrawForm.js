@@ -13,12 +13,7 @@ import { EventBusy } from '@material-ui/icons';
 import EuroIcon from '@material-ui/icons/Euro';
 import httpClient from '../../client/httpClient';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
+import { useToasts } from 'react-toast-notifications';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -44,33 +39,21 @@ export default function WithdrawForm(props) {
     const classes = useStyles();
     const [iban, setIban] = useState('');
     const [amount, setAmount] = useState('');
-    const [openSuccess, setOpenSuccess] = React.useState(false);
-    const [openFailure, setOpenFailure] = React.useState(false);
+    const { addToast } = useToasts();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Iban: ', iban, ' amount: ', amount);
         requestWithdraw()
     }
-
 
     const requestWithdraw = async () => {
         var result = await axios.put(`Bank/withdraw?amount=${amount}&iban=${iban}`);
         if(result.status == 200){
-            setOpenSuccess(true);
+            addToast('Withdrawal request sent!', { appearance: 'success' });
         }else{
-            setOpenFailure(true);
+            addToast(result.status.errorMessage, { appearance: 'error', autoDismiss: true });
         }
     }
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setOpenSuccess(false);
-        setOpenFailure(false);
-      };
 
     return (
         <>
@@ -113,18 +96,8 @@ export default function WithdrawForm(props) {
                             className={classes.submit}
                         >
                             Withdraw
-          </Button>
+                        </Button>
                     </form>
-                    <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
-                        <Alert onClose={handleClose} severity="success">
-                        Withdrawal request sent!
-                        </Alert>
-                    </Snackbar>
-                    <Snackbar open={openFailure} autoHideDuration={6000} onClose={handleClose}>
-                        <Alert onClose={handleClose} severity="error">
-                        Withdrawal request failed!
-                        </Alert>
-                    </Snackbar>
                 </div>
             </Container>
         </>
