@@ -15,7 +15,7 @@ export default function LoanForm(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await httpClient.post('loans', { amount });
+        await httpClient.post('loans', { amount: parseInt(amount) });
         props.history.push('/loans');
     }
 

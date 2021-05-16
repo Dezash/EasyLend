@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import httpClient from '../../client/httpClient';
@@ -35,6 +34,17 @@ export default function LoanList() {
         getLoans();
     }, [push])
 
+    const returnLoan = async (id) => {
+        const status = await httpClient.get(`loans/returnLoan/${id}`);
+        if (status.errorMessage) {
+            addToast(status.errorMessage, { appearance: 'error', autoDismiss: true });
+        }
+        else {
+            addToast('Loan returned', { appearance: 'success' });
+            setLoans(loans.filter((loan) => loan.id !== id));
+        }
+    }
+
     return (
         <>
             <Typography variant='h2' align='center' gutterBottom>My loans</Typography>
@@ -59,7 +69,7 @@ export default function LoanList() {
                                 <TableCell>{loan.amountToPay}</TableCell>
                                 <TableCell>{loan.startDate}</TableCell>
                                 <TableCell>{loan.endDate}</TableCell>
-                                <TableCell><Link to={`loans/${loan.id}`}><VisibilityIcon/></Link></TableCell>
+                                <TableCell><Button color="primary" variant="contained" onClick={() => { returnLoan(loan.id) }}>Return loan</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

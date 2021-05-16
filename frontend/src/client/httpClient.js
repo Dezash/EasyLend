@@ -8,8 +8,6 @@ class HTTPClient {
   handleError(code) {
     switch (code) {
       case 500:
-
-      default:
         throw new Error('Internal server error');
     }
   }
@@ -24,6 +22,7 @@ class HTTPClient {
     } catch (e) {
       if (e.response && e.response.status) {
         this.handleError(e.response.status);
+        return e.response.data;
       }
     }
   }
