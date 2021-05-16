@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using easylend.Database;
@@ -19,15 +17,15 @@ namespace easylend.Controllers
     {
         private readonly ApplicationContext _dbContext;
         private readonly IMapper _mapper;
-        //  private readonly IConfiguration _configuration;
-        public GoalController(ApplicationContext dbContext, ILogger<WeatherForecastController> logger, IMapper mapper)
+
+        public GoalController(ApplicationContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<List<UpdateGoalDTO>> Get()
+        public async Task<List<UpdateGoalDTO>> getGoalListView()
         {
             var goals = await _dbContext.Goals.ToListAsync();
 
@@ -35,7 +33,7 @@ namespace easylend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<UpdateGoalDTO> Get(int id)
+        public async Task<UpdateGoalDTO> select(int id)
         {
             var goal = await _dbContext.Goals.FirstAsync(x => x.Id == id);
 
@@ -43,7 +41,7 @@ namespace easylend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UpdateGoalDTO goalDto)
+        public async Task<IActionResult> submit([FromBody] UpdateGoalDTO goalDto)
         {
             var user = _dbContext.Users.FirstOrDefaultAsync(x => x.Id == goalDto.UserId).Result;
             var newGoal = new Goal()
@@ -63,7 +61,7 @@ namespace easylend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UpdateGoalDTO updateGoalDto)
+        public async Task<IActionResult> submit(int id, [FromBody] UpdateGoalDTO updateGoalDto)
         {
             var result = await _dbContext.Goals.SingleOrDefaultAsync(x => x.Id == id);
 
@@ -85,7 +83,7 @@ namespace easylend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task submitChoice(int id)
         {
             var item = await _dbContext.Goals.SingleOrDefaultAsync(x => x.Id == id);
 

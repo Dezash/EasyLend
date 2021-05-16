@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using easylend.DTO;
 using easylend.Entities;
 
 namespace easylend.Database.Entities

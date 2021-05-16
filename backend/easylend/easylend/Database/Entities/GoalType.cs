@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace easylend.Database.Entities
+﻿namespace easylend.Database.Entities
 {
     public enum GoalType
     {

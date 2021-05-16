@@ -9,7 +9,8 @@ namespace easylend.Database.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public double MaxLoanAmount { get; set; }
-
+        [JsonIgnore]
+        public virtual ICollection<User> Users { get; set; }
         [JsonIgnore]
         public ICollection<User> Users { get; set; }
 

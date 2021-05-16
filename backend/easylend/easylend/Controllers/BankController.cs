@@ -59,12 +59,24 @@ namespace easylend.Controllers
         public async Task<IActionResult> requestWithdraw(decimal amount, string IBan)
         {
             int userId = 2;
-            var result = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            await SendRequest(amount);
+
+            var setUser = SetUserBalance(userId, amount, IBan);
+            var sendRequest = SendRequest(amount);
+
+            await Task.WhenAll(sendRequest, setUser);
+
+            return setUser.Result ? (IActionResult) Ok() : BadRequest();
+        }
+
+        private async Task<bool> SetUserBalance(int id, decimal amount, string IBan)
+        {
+            var result = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (result != null)
             {
                 if (result.Balance < amount)
-                    return BadRequest();
+                    return false;
 
                 result.Balance -= amount;
                 await _dbContext.SaveChangesAsync();
@@ -81,7 +93,12 @@ namespace easylend.Controllers
             await _dbContext.Withdrawals.AddAsync(withdrawal);
             await _dbContext.SaveChangesAsync();
 
-            return Ok();
+            return true;
+        }
+
+        private async Task<bool> SendRequest(decimal amount)
+        {
+            return true;
         }
 
         [HttpGet("getReport")]
