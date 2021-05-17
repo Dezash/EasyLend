@@ -16,13 +16,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import CheckIcon from '@material-ui/icons/Check';
 import EcoIcon from '@material-ui/icons/Eco';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HomeIcon from '@material-ui/icons/Home';
 import { Link } from "react-router-dom";
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import GroupIcon from '@material-ui/icons/Group';
 
 
 const drawerWidth = 240;
@@ -161,10 +161,10 @@ export default function Navigation() {
                 </List>
                 <Divider />
                 <List>
-                    {[{ title: 'Applications', link: "/applications" }].map((navItem, index) => (
+                    {[{ title: 'Applications', link: "/applications"}, { title: 'Risk groups', link: '/riskgroups' } ].map((navItem, index) => (
                         <Link key={navItem.title} to={navItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItem button>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemIcon>{index === 0 ? <InboxIcon /> : <GroupIcon />}</ListItemIcon>
                                 <ListItemText primary={navItem.title} />
                             </ListItem>
                         </Link>
