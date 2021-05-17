@@ -37,7 +37,7 @@ namespace easylend.Controllers
                 return Ok();
             }
 
-            return BadRequest();
+            return BadRequest(new { errorMessage = "Failed to deposit" });
         }
 
         [HttpPut("transfer/{id}")]
@@ -53,7 +53,7 @@ namespace easylend.Controllers
                 return Ok();
             }
 
-            return BadRequest();
+            return BadRequest(new { errorMessage = "Failed to transfer" });
         }
 
         private async Task<bool> PayseraCallback()
@@ -72,7 +72,8 @@ namespace easylend.Controllers
 
             await Task.WhenAll(sendRequest, setUser);
 
-            return setUser.Result ? (IActionResult) Ok() : BadRequest();
+            return setUser.Result ? (IActionResult) Ok() : BadRequest(new { errorMessage = "Failed to withdraw" });
+            ;
         }
 
         private async Task<bool> SetUserBalance(int id, decimal amount, string IBan)

@@ -113,7 +113,7 @@ namespace easylend.Controllers
                 return Ok();
             };
 
-            return BadRequest();
+            return BadRequest(new { errorMessage = "failed to update" });
         }
 
         [HttpDelete("{id}")]

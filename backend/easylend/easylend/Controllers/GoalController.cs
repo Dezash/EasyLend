@@ -83,7 +83,7 @@ namespace easylend.Controllers
                 return Ok();
             };
 
-            return BadRequest();
+            return BadRequest(new { errorMessage = "Failed to submit" });
         }
 
         [HttpDelete("{id}")]
