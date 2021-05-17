@@ -6,7 +6,6 @@ using easylend.Database;
 using easylend.Database.Entities;
 using easylend.DTO;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace easylend.Controllers
 {
@@ -26,13 +25,21 @@ namespace easylend.Controllers
         [HttpGet]
         public async Task<List<UpdateRiskGroupDTO>> index()
         {
-            var applications = await _dbContext.RiskGroups.ToListAsync();
+            var riskGroups = await _dbContext.RiskGroups.ToListAsync();
 
-            return _mapper.Map<List<UpdateRiskGroupDTO>>(applications);
+            return _mapper.Map<List<UpdateRiskGroupDTO>>(riskGroups);
+        }
+
+        [HttpGet]
+        public async Task<List<UpdateRiskGroupDTO>> getRiskGroup(int id)
+        {
+            var riskGroup = await _dbContext.RiskGroups.FirstOrDefaultAsync(r => r.Id == id);
+
+            return _mapper.Map<List<UpdateRiskGroupDTO>>(riskGroup);
         }
 
         [HttpPost]
-        public async Task<IActionResult> createGroup([FromBody] UpdateRiskGroupDTO riskGroupDto)
+        public async Task<IActionResult> createGroup([FromBody] NewRiskGroupDTO riskGroupDto)
         {
             var newRiskGroup = new RiskGroup()
             {

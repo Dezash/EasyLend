@@ -47,12 +47,18 @@ namespace easylend.Controllers
 
             if (result != null)
             {
+                await PayseraCallback();
                 result.Balance += amount;
                 await _dbContext.SaveChangesAsync();
                 return Ok();
             }
 
             return BadRequest();
+        }
+
+        private async Task<bool> PayseraCallback()
+        {
+            return true;
         }
 
         [HttpPut("withdraw")]

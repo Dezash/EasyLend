@@ -28,9 +28,10 @@ namespace easylend.Controllers
         [HttpGet]
         public async Task<List<UpdateGoalDTO>> getGoalListView()
         {
-            int id = 1;
+            int id = 2;
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
-            var goals = await _dbContext.Goals.Where(g => g.Id == user.Id).ToListAsync();
+            var goals = await _dbContext.Goals.Include(g => g.User)
+                .Where(g => g.User.Id == user.Id).ToListAsync();
 
             return _mapper.Map<List<UpdateGoalDTO>>(goals);
         }
