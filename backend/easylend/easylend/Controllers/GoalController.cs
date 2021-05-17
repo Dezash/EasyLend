@@ -47,7 +47,8 @@ namespace easylend.Controllers
         [HttpPost]
         public async Task<IActionResult> submit([FromBody] UpdateGoalDTO goalDto)
         {
-            var user = _dbContext.Users.FirstOrDefaultAsync(x => x.Id == goalDto.UserId).Result;
+            int id = 2;
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
             var newGoal = new Goal()
             {
                 Name = goalDto.Name,

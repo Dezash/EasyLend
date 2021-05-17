@@ -73,7 +73,6 @@ namespace easylend.Controllers
             await Task.WhenAll(sendRequest, setUser);
 
             return setUser.Result ? (IActionResult) Ok() : BadRequest(new { errorMessage = "Failed to withdraw" });
-            ;
         }
 
         private async Task<bool> SetUserBalance(int id, decimal amount, string IBan)
