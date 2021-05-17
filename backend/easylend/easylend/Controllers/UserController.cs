@@ -50,8 +50,8 @@ namespace easylend.Controllers
                 await _dbContext.SaveChangesAsync();
                 return Ok();
             };
-         
-            return BadRequest();
+
+            return BadRequest(new { errorMessage = "Failed to update" });
         }
     }
 }
