@@ -13,6 +13,10 @@ import WithdrawForm from './components/Homepage/WithdrawForm';
 import Loan from './components/Loans/Loan';
 import LoanForm from './components/Loans/LoanForm';
 import LoanList from './components/Loans/LoanList';
+import RiskGroupList from './components/RiskGroups/RiskGroupList';
+import RiskGroupEdit from './components/RiskGroups/RiskGroupEdit';
+import RiskGroupDelete from './components/RiskGroups/RiskGroupDelete';
+import RiskGroupCreate from './components/RiskGroups/RiskGroupCreate';
 import { ToastProvider } from 'react-toast-notifications';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +60,10 @@ function App() {
               <Route path="/loans" exact component={LoanList} />
               <Route path="/loans/:id" component={Loan} />
               <Route path="/requestloan" component={LoanForm} />
+              <Route path="/riskgroups" exact component={RiskGroupList} />
+              <Route path="/riskgroups/:id/edit" component={RiskGroupEdit} />
+              <Route path="/riskgroups/:id/delete" component={RiskGroupDelete} />
+              <Route path="/riskgroups/create" component={RiskGroupCreate} />
               <Route render={() => (
                 <h1>404 not found</h1>
               )}></Route>

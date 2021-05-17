@@ -52,9 +52,9 @@ class HTTPClient {
     }
   }
 
-  async delete(path) {
+  async delete(path, body) {
     try {
-      const response = await axios.delete(path);
+      const response = await body ? axios.delete(path, { data: body }) : axios.delete(path);
       const data = await response.data;
       return data;
     } catch (e) {
