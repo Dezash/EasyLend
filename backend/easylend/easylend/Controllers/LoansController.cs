@@ -102,6 +102,22 @@ namespace easylend.Controllers
                 await _dbContext.Returns.AddAsync(newReturn);
             }
 
+            decimal pay = amountToPay;
+
+            foreach (var goal in user.Goals)
+            {
+                if (pay > goal.MonthlyAmount)
+                {
+                    goal.Balance += goal.MonthlyAmount;
+                    pay -= goal.MonthlyAmount;
+                }
+                else
+                {
+                    goal.Balance += pay;
+                    break;
+                }
+            }
+
             loan.IsOpen = false;
             await _dbContext.SaveChangesAsync();
             return Ok();
