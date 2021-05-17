@@ -51,7 +51,7 @@ namespace easylend.Controllers
 
             foreach (var document in applicationDto.Documents)
             {
-                document.URL = $"{myUrl}/api/application/document/{document.ID}";
+                document.URL = $"{myUrl}/api/applications/document/{document.ID}";
             }
 
             return applicationDto;
@@ -113,7 +113,7 @@ namespace easylend.Controllers
                 return Ok();
             };
 
-            return BadRequest();
+            return BadRequest(new { errorMessage = "failed to update" });
         }
 
         [HttpDelete("{id}")]
