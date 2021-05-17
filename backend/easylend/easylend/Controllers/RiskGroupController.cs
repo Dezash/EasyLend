@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using easylend.Database;
@@ -72,9 +73,20 @@ namespace easylend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task deleteGroup(int id)
+        public async Task deleteGroup(int id, [FromBody] DeleteRiskGroupDTO deleteRiskGroupDto)
         {
             var item = await _dbContext.RiskGroups.SingleOrDefaultAsync(x => x.Id == id);
+
+            var users = await _dbContext.Users.Include(u => u.RiskGroup)
+                .Where(u => u.RiskGroup.Id == id).ToListAsync();
+
+            var riskGroup =
+                await _dbContext.RiskGroups.FirstOrDefaultAsync(r => r.Id == deleteRiskGroupDto.TransferGroupId);
+
+            foreach (var user in users)
+            {
+                user.RiskGroup = riskGroup;
+            }
 
             if (item == null) return;
 
