@@ -9,6 +9,7 @@ import React from 'react';
 import GoalList from './components/Goals/GoalList';
 import Settings from './components/User/Settings';
 import Homepage from './components/Homepage/Homepage';
+import WithdrawForm from './components/Homepage/WithdrawForm';
 import Loan from './components/Loans/Loan';
 import LoanForm from './components/Loans/LoanForm';
 import LoanList from './components/Loans/LoanList';
@@ -51,6 +52,7 @@ function App() {
               <Route path="/applications/:id" component={Application} />
               <Route path="/goals" component={GoalList} />
               <Route path="/settings" component={Settings} />
+              <Route path="/withdraw" component={WithdrawForm} />
               <Route path="/loans" exact component={LoanList} />
               <Route path="/loans/:id" component={Loan} />
               <Route path="/requestloan" component={LoanForm} />

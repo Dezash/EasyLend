@@ -14,6 +14,7 @@ import httpClient from '../../client/httpClient';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
+import { Link } from 'react-router-dom';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
@@ -86,7 +87,7 @@ export default function ApplicationList() {
 
                     <div class={classes.root}>
                         <Button variant="contained" color="primary">Deposit</Button>
-                        <Button variant="contained" color="primary">Withdraw</Button>
+                        <Link to="/withdraw"><Button variant="contained" color="primary">Withdraw</Button></Link>
                     </div>
 
                     <div class={classes.root}>
