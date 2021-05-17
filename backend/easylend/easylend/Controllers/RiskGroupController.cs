@@ -30,12 +30,12 @@ namespace easylend.Controllers
             return _mapper.Map<List<UpdateRiskGroupDTO>>(riskGroups);
         }
 
-        [HttpGet]
-        public async Task<List<UpdateRiskGroupDTO>> getRiskGroup(int id)
+        [HttpGet("{id}")]
+        public async Task<UpdateRiskGroupDTO> getRiskGroup(int id)
         {
             var riskGroup = await _dbContext.RiskGroups.FirstOrDefaultAsync(r => r.Id == id);
 
-            return _mapper.Map<List<UpdateRiskGroupDTO>>(riskGroup);
+            return _mapper.Map<UpdateRiskGroupDTO>(riskGroup);
         }
 
         [HttpPost]
