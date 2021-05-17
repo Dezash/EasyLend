@@ -47,6 +47,7 @@ class HTTPClient {
     } catch (e) {
       if (e.response && e.response.status) {
         this.handleError(e.response.status);
+        return e.response.data;
       }
     }
   }
